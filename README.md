@@ -1,1 +1,1 @@
-# PSUTI_IT_Courses
+# PSUTI_IT
