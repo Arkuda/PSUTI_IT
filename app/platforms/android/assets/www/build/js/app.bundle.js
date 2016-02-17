@@ -61749,14 +61749,21 @@
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var ionic_1 = __webpack_require__(5);
+	var http_1 = __webpack_require__(143);
+	var posts;
 	var Page1 = (function () {
-	    function Page1() {
+	    function Page1(http) {
+	        this.http = http;
+	        var othis = this;
+	        http.get("http://api.vk.com/method/wall.get?domain=itclub_psuti&count=20&filter=all")
+	            .subscribe(function (data) { console.log(data); othis.response = data._body; }, function (err) { console.log(err); }, function () { return console.log('Random Quote Complete'); });
+	        //posts = VK.callMethod('wall.get',{'domain': 'itclub_psuti','count': 20,'filter':'all'});
 	    }
 	    Page1 = __decorate([
 	        ionic_1.Page({
 	            templateUrl: 'build/pages/page1/page1.html'
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [http_1.Http])
 	    ], Page1);
 	    return Page1;
 	})();
@@ -61814,8 +61821,6 @@
 	    localStorage.setItem('isLoged', false);
 	}
 	var isLoged = localStorage.getItem('isLoged');
-	;
-	var isAnonymous = localStorage.getItem('isAnonymous');
 	var othis;
 	var Page3 = (function () {
 	    function Page3() {
@@ -61825,12 +61830,64 @@
 	    Page3.prototype.login = function (email, password) {
 	        isLoged = true;
 	        localStorage.setItem('isLoged', true);
-	        othis.isLoged = isLoged;
+	        var ref = new Firebase("https://psuti-it.firebaseio.com");
+	        ///https://www.firebase.com/docs/web/api/firebase/authwithpassword.html
+	        ref.authWithPassword({
+	            "email": email,
+	            "password": password
+	        }, function (error, authData) {
+	            if (error) {
+	                alert('Логин или пасс не верен!');
+	            }
+	            else {
+	                othis.isLoged = true;
+	                othis.registration = false;
+	                alert('Добро пожаловать');
+	                console.log("Authenticated successfully with payload:", authData);
+	                localStorage.setItem('user', JSON.stringify(authData));
+	            }
+	        });
 	    };
 	    Page3.prototype.logout = function () {
 	        isLoged = false;
 	        localStorage.setItem('isLoged', false);
-	        othis.isLoged = isLoged;
+	        othis.isLoged = false;
+	        othis.registration = false;
+	    };
+	    Page3.prototype.showReg = function () {
+	        othis.isLoged = false;
+	        othis.registration = true;
+	    };
+	    Page3.prototype.reg = function (email, password, fio) {
+	        //:TODO Chack input variables 
+	        //https://www.firebase.com/docs/web/api/firebase/createuser.html
+	        var ref = new Firebase("https://psuti-it.firebaseio.com");
+	        ref.createUser({
+	            email: email,
+	            password: password
+	        }, function (error, userData) {
+	            if (error) {
+	                switch (error.code) {
+	                    case "EMAIL_TAKEN":
+	                        console.log("The new user account cannot be created because the email is already in use.");
+	                        break;
+	                    case "INVALID_EMAIL":
+	                        console.log("The specified email is not a valid email.");
+	                        break;
+	                    default:
+	                        console.log("Error creating user:", error);
+	                }
+	            }
+	            else {
+	                console.log("Successfully created user account with uid:", userData.uid);
+	                ref.child('user').child(email.split('@')[0]).set({ 'user_id': userData.uid, 'email': email, 'fio': fio, 'courses': '' });
+	                alert('Добро пожаловать ' + fio + ' !');
+	                othis.isLoged = true;
+	                othis.registration = false;
+	                localStorage.setItem('isLoged', true);
+	                localStorage.setItem('user', JSON.stringify(userData));
+	            }
+	        });
 	    };
 	    Page3 = __decorate([
 	        ionic_1.Page({

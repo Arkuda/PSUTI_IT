@@ -1,5 +1,6 @@
 import {Page, Alert} from 'ionic/ionic';
 
+
 if(localStorage.getItem('isLoged') == undefined || localStorage.getItem('isLoged') == 'undefined') {
     localStorage.setItem('isLoged', false);
 }
@@ -7,14 +8,17 @@ var isLoged = localStorage.getItem('isLoged');
 
 var othis;
 
+
 @Page({
   templateUrl: 'build/pages/page3/page3.html'
 })
 export class Page3 {
-  constructor() {
+
+    constructor() {
     this.isLoged = isLoged;
       othis = this;
-  }
+    }
+
     login(email,password){
         isLoged = true;
         localStorage.setItem('isLoged',true);

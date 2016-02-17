@@ -6,7 +6,7 @@
 
 <ion-content class="page3">
 
-<div [hidden]="isLoged">
+<div [hidden]="isLoged || registration">
 
     <ion-col center>
         <ion-list>
@@ -23,16 +23,38 @@
             <button full (click)="login(email.value,password.value)">Войти</button>
         </ion-list>
 
-        <button full secondary>Зарегестрироваться</button>
+        <button full secondary (click)='showReg()'>Зарегестрироваться</button>
 
 
 
     </ion-col>
 
 </div>
-    <div [hidden]="!isLoged">
+    <div [hidden]="!isLoged || registration">
         your profile
         <button full secondary (click)="logout()">Выйти</button>
+    </div>
+
+    <div [hidden]='!registration'>
+        <ion-list>
+
+            <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input type="text" #emailr></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>Password</ion-label>
+                <ion-input type="password" #passwordr></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>ФИО</ion-label>
+                <ion-input type="text" #fio></ion-input>
+            </ion-item>
+
+            <button full (click)="reg(emailr.value,passwordr.value,fio.value)">Регистрация</button>
+        </ion-list>        
+
     </div>
 
 </ion-content>
