@@ -1,0 +1,35 @@
+
+<ion-navbar *navbar>
+  <ion-title>
+    Курсы
+  </ion-title>
+</ion-navbar>
+
+<ion-content class="page2">
+
+  <ion-card *ngFor="#course of courses">
+
+    <ion-item>
+      <!--<ion-avatar item-left>
+
+      </ion-avatar>-->
+      <h2>{{course.name}}</h2>
+      <p>{{course.time}}</p>
+    </ion-item>
+
+
+    <ion-card-content>
+        {{course.about}}
+    </ion-card-content>
+
+    <ion-item>
+      <button primary clear item-left>
+        <div>Подробнее</div>
+      </button>
+
+    </ion-item>
+
+  </ion-card>
+
+
+</ion-content>

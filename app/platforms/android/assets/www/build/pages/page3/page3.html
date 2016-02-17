@@ -1,0 +1,38 @@
+<ion-navbar *navbar>
+    <ion-title>
+        Добро пожаловать
+    </ion-title>
+</ion-navbar>
+
+<ion-content class="page3">
+
+<div [hidden]="isLoged">
+
+    <ion-col center>
+        <ion-list>
+
+            <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input type="text" #email></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>Password</ion-label>
+                <ion-input type="password" #password></ion-input>
+            </ion-item>
+            <button full (click)="login(email.value,password.value)">Войти</button>
+        </ion-list>
+
+        <button full secondary>Зарегестрироваться</button>
+
+
+
+    </ion-col>
+
+</div>
+    <div [hidden]="!isLoged">
+        your profile
+        <button full secondary (click)="logout()">Выйти</button>
+    </div>
+
+</ion-content>

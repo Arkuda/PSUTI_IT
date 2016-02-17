@@ -1,0 +1,30 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "io.ionic.starter"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.psuti.it"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.psuti.it"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.psuti.it"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.psuti.it"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.psuti.it"
+        }
+    },
+    "dependent_plugins": {}
+}
